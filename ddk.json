@@ -1,0 +1,20 @@
+{
+    "container_name": "mysql57.ddk",
+    "env_file": [
+        "${PACKAGE_PATH}/env/db-mysql5.7.env"
+    ],
+    "image": "mysql:5.7",
+    "ports": [
+        "3306:3306"
+    ],
+    "volumes": [
+        "${PACKAGE_PATH}/storage/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d",
+        "${PACKAGE_PATH}/storage/etc/mysql/conf.d:/etc/mysql/conf.d",
+        "${PACKAGE_PATH}/storage/var/lib/mysql:/var/lib/mysql",
+        "${PACKAGE_PATH}/storage/var/log/mysql:/var/log/mysql"
+    ],
+    "ddk-post-install": [
+        "mkdir -p ${PACKAGE_PATH}/env",
+        "echo MYSQL_ROOT_PASSWORD=password > ${PACKAGE_PATH}/env/db-mysql5.7.env"
+    ]
+}
